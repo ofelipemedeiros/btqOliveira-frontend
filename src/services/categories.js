@@ -9,7 +9,7 @@ export default {
         return http.post('categories', resultado)
     },
     deletar: (resultado) => {
-        return http.delete('categories/' + resultado.id)
+        return http.delete('categories/' + resultado.idcategoria)
     }
 
 }

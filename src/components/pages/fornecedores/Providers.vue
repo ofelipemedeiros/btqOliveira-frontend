@@ -18,10 +18,10 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" sm="6" md="4">
-                            <v-text-field prepend-inner-icon="mdi-label" v-model="dadosFornecedor.name" label="Nome"></v-text-field>
+                            <v-text-field prepend-inner-icon="mdi-label" v-model="dadosFornecedor.nome" label="Nome"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
-                            <v-text-field prepend-inner-icon="mdi-cellphone" v-model="dadosFornecedor.contact" label="Preço"></v-text-field> 
+                            <v-text-field prepend-inner-icon="mdi-cellphone" v-model="dadosFornecedor.contato" label="Contato"></v-text-field> 
                         </v-col>
                         
                     </v-row>
@@ -39,6 +39,7 @@
           <template>
               <thead>
                   <tr>
+                      
                       <th>Nome</th>
                       <th>Contato</th>
                       <th>Ações</th>
@@ -46,8 +47,9 @@
               </thead>
               <tbody>
                   <tr v-for="fornecedor in listFornecedor" :key="fornecedor.id">
-                      <td>{{fornecedor.attributes.name}}</td>
-                      <td>{{fornecedor.attributes.contact}}</td>
+                      
+                      <td>{{fornecedor.nome}}</td>
+                      <td>{{fornecedor.contato}}</td>
                       <td>
                           <v-btn icon color="success" @click="editar(fornecedor)" ><v-icon>mdi-pencil</v-icon></v-btn>
                           <v-btn icon color="error"   @click="apagar(fornecedor)"><v-icon>mdi-delete</v-icon></v-btn>
@@ -72,15 +74,16 @@ export default {
         return{
             dialog: false,
             cabecalho: [
-                {text: 'Nome', value: 'attributes.name'},
-                {text: 'Contato', value: 'attributes.contact'},
+                
+                {text: 'Nome', value: 'nome'},
+                {text: 'Contato', value: 'contato'},
                 {text: 'Ações', value: 'actions'}
             ],
             dadosIndex: -1,
             dadosFornecedor: {
-                id: '',
-                name: '',
-                contact: ''
+                idfornecedor: '',
+                nome: '',
+                contato: ''
             },
             
 
@@ -101,7 +104,7 @@ export default {
     methods: {
         atualizaDados(){
             Providers.listar().then(resposta => {
-                this.listFornecedor = resposta.data.data
+                this.listFornecedor = resposta.data
             })
         },
 

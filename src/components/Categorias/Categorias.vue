@@ -83,7 +83,7 @@ export default {
     },
     
     beforeUpdate(){
-        
+        this.atualizarCategrias()
         
     },
     methods: {

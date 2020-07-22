@@ -14,7 +14,7 @@ import { http } from './config'
      },
 
      deletar: (resultado) => {
-         return http.delete('provider/' + resultado.id)
+         return http.delete('provider/' + resultado.idfornecedor)
 
      }
  }
