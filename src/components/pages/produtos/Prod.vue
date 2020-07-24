@@ -100,10 +100,12 @@
                             <th>Data de entrada</th>
                             <th>Fornecedor</th>
                             <th>Categoria</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="produto in produtos" :key="produto.id">
+                            
                             <td>{{produto.nome}}</td>
                             <td>{{produto.descricao}}</td>
                             <td>{{produto.dataEntrada}}</td>
@@ -162,6 +164,7 @@ export default {
         listData(){
             Produtos.listar().then(resposta =>{
                 this.produtos = resposta.data
+                console.log(this.produtos);
             })
 
         },
