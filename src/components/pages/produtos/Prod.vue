@@ -24,23 +24,23 @@
                         <v-menu 
                         ref="menu" 
                         v-model="menu" 
-                        :close-on-content-click="false" :return-value.sync="date" 
+                        :close-on-content-click="false" :return-value.sync="dadosProdutos.dataEntrada" 
                         transition="scale-transition" offset-y
                         min-width="290px"
                         >
                         <template v-slot:activator="{ on, attrs }">
                             <v-text-field 
                             prepend-inner-icon="mdi-calendar" 
-                            v-model="date" 
+                            v-model="dadosProdutos.dataEntrada" 
                             label="Data de Cadastro" 
                             v-bind="attrs"
                             v-on="on">
                             </v-text-field> 
                         </template>
-                            <v-date-picker v-model="date" no-title scrollable>
+                            <v-date-picker v-model="dadosProdutos.dataEntrada" no-title scrollable>
                                 <v-spacer></v-spacer>
                                 <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                                <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                                <v-btn text color="primary" @click="$refs.menu.save(dadosProdutos.dataEntrada)">OK</v-btn>
                             </v-date-picker>
                             </v-menu>
                         </v-col>
@@ -48,30 +48,31 @@
                         <v-row>
                             <v-col cols="12" sm="6" md="4">
                             <v-select
+                            :items="Categorias"
+                            label="Categoria"
+                            item-text="nome"
+                            item-value="idcategoria"
+                            v-model="dadosProdutos.categ"
+                            prepend-inner-icon="mdi-account-tie"
+                            >
+
+                            </v-select>
+                        </v-col>
+
+                            <v-col cols="12" sm="6" md="4">
+                            <v-select
                             :items="Fornecedores"
                             label="Fornecedor"
-                            item-text="attributes.name"
-                            item-value="id"
-                            v-model="dadosProdutos.fornecedor"
+                            item-text="nome"
+                            item-value="idfornecedor"
+                            v-model="dadosProdutos.provider"
                             prepend-inner-icon="mdi-account-tie"
                             loading
                             >
 
                             </v-select>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                            <v-select
-                            :items="Categorias"
-                            label="Categoria"
-                            item-text="nome"
-                            item-value="id"
-                            v-model="dadosProdutos.categoria"
-                            prepend-inner-icon="mdi-account-tie"
-                            >
-
-                            </v-select>
-                        </v-col>
-                        </v-row>
+                                                </v-row>
 
                         <v-row>
                         <v-col >
@@ -140,12 +141,12 @@ export default {
             Categorias: [],
             Fornecedores: [],
             dadosProdutos: {
-                id: '',
+                idproduto: '',
                 nome: '',
                 descricao: '',
-                dataEntrada: '',
-                fornecedor: '',
-                categoria: ''
+                dataEntrada: new Date().toISOString().substr(0, 10),
+                
+                
             },
         }
     },
@@ -170,7 +171,7 @@ export default {
         },
         listarFornecedor(){
             Fornecedor.listar().then(resposta => {
-                this.Fornecedores = resposta.data.data
+                this.Fornecedores = resposta.data
                 console.log(this.Fornecedores);
                                          
             })
@@ -185,6 +186,7 @@ export default {
         },
         salvar(){
             Produtos.salvar(this.dadosProdutos)
+            console.log(this.dadosProdutos);
             this.dadosProdutos = {}
 
         },

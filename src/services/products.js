@@ -9,7 +9,7 @@ export default {
         return http.post('products', resultado)
     },
     deletar: (resultado) => {
-        return http.delete('products/' + resultado.id)
+        return http.delete('products/' + resultado.idproduto)
     }
 
 }
